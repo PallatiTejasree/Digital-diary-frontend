@@ -1,0 +1,667 @@
+/* =====================================
+   PAGE
+===================================== */
+
+.splashPage {
+  position: relative;
+
+  width: 100%;
+
+  height: 100vh;
+
+  overflow: hidden;
+
+  display: flex;
+
+  justify-content: center;
+
+  align-items: center;
+
+  background: linear-gradient(
+    135deg,
+    #2f2342 0%,
+    #4b2d5d 45%,
+    #5a3045 75%,
+    #31442d 100%
+  );
+
+  font-family: "Inter", sans-serif;
+}
+
+/* =====================================
+   STARS
+===================================== */
+
+.stars {
+  position: absolute;
+
+  inset: 0;
+
+  background-image: radial-gradient(
+    rgba(255, 255, 255, 0.9) 1px,
+    transparent 1px
+  );
+
+  background-size: 80px 80px;
+
+  opacity: 0.35;
+
+  animation: twinkle 5s ease-in-out infinite;
+}
+
+@keyframes twinkle {
+  0% {
+    opacity: 0.2;
+  }
+
+  50% {
+    opacity: 0.45;
+  }
+
+  100% {
+    opacity: 0.2;
+  }
+}
+
+/* =====================================
+   CENTER
+===================================== */
+
+.centerContent {
+  position: relative;
+
+  z-index: 10;
+
+  text-align: center;
+
+  animation: fadeUp 1s ease;
+}
+
+/* =====================================
+   BOOK
+===================================== */
+
+.bookIcon {
+  font-size: 84px;
+
+  margin-bottom: 24px;
+
+  animation: floatBook 3s ease-in-out infinite;
+}
+
+@keyframes floatBook {
+  0% {
+    transform: translateY(0px);
+  }
+
+  50% {
+    transform: translateY(-10px);
+  }
+
+  100% {
+    transform: translateY(0px);
+  }
+}
+
+/* =====================================
+   TITLE
+===================================== */
+
+.centerContent h1 {
+  margin: 0;
+
+  font-size: 90px;
+
+  font-weight: 700;
+
+  letter-spacing: 2px;
+
+  color: #fff7ef;
+
+  text-shadow: 0 4px 18px rgba(0, 0, 0, 0.25);
+}
+
+/* =====================================
+   SUBTITLE
+===================================== */
+
+.subtitle {
+  margin-top: 24px;
+
+  font-size: 28px;
+
+  font-weight: 500;
+
+  color: #ffd56d;
+
+  text-shadow: 0 2px 12px rgba(255, 213, 109, 0.35);
+}
+
+/* =====================================
+   LOADING
+===================================== */
+
+.loadingText {
+  margin-top: 75px;
+
+  font-size: 20px;
+
+  color: rgba(255, 255, 255, 0.72);
+
+  animation: pulse 2s infinite;
+}
+
+@keyframes pulse {
+  0% {
+    opacity: 0.45;
+  }
+
+  50% {
+    opacity: 1;
+  }
+
+  100% {
+    opacity: 0.45;
+  }
+}
+/* =====================================
+   CLOUDS
+===================================== */
+
+.cloud {
+  position: absolute;
+
+  z-index: 2;
+
+  font-size: 70px;
+
+  opacity: 0;
+
+  filter: blur(0.5px);
+
+  user-select: none;
+
+  pointer-events: none;
+}
+
+/* Top Cloud */
+
+.cloud1 {
+  top: 12%;
+
+  left: -300px;
+
+  animation: cloudMove1 18s linear infinite;
+}
+
+/* Middle Cloud */
+
+.cloud2 {
+  top: 32%;
+
+  left: -260px;
+
+  font-size: 55px;
+
+  animation: cloudMove2 20s linear infinite;
+
+  animation-delay: 0.8s;
+}
+
+/* Bottom Cloud */
+
+.cloud3 {
+  bottom: 18%;
+
+  left: -320px;
+
+  font-size: 80px;
+
+  animation: cloudMove3 22s linear infinite;
+
+  animation-delay: 1.8s;
+}
+
+/* =====================================
+   CLOUD ANIMATIONS
+===================================== */
+
+@keyframes cloudMove1 {
+  0% {
+    left: -300px;
+    opacity: 0;
+    transform: translateY(0px);
+  }
+
+  10% {
+    opacity: 0.35;
+  }
+
+  50% {
+    opacity: 0.45;
+    transform: translateY(-8px);
+  }
+
+  90% {
+    opacity: 0.35;
+  }
+
+  100% {
+    left: 58%;
+    opacity: 0;
+    transform: translateY(0px);
+  }
+}
+
+@keyframes cloudMove2 {
+  0% {
+    left: -260px;
+    opacity: 0;
+    transform: translateY(0px);
+  }
+
+  10% {
+    opacity: 0.3;
+  }
+
+  50% {
+    opacity: 0.4;
+    transform: translateY(8px);
+  }
+
+  90% {
+    opacity: 0.3;
+  }
+
+  100% {
+    left: 48%;
+    opacity: 0;
+    transform: translateY(0px);
+  }
+}
+
+@keyframes cloudMove3 {
+  0% {
+    left: -320px;
+    opacity: 0;
+    transform: translateY(0px);
+  }
+
+  10% {
+    opacity: 0.3;
+  }
+
+  50% {
+    opacity: 0.45;
+    transform: translateY(-6px);
+  }
+
+  90% {
+    opacity: 0.3;
+  }
+
+  100% {
+    left: 62%;
+    opacity: 0;
+    transform: translateY(0px);
+  }
+}
+
+/* =====================================
+   FADE UP
+===================================== */
+
+@keyframes fadeUp {
+  from {
+    opacity: 0;
+
+    transform: translateY(40px);
+  }
+
+  to {
+    opacity: 1;
+
+    transform: translateY(0px);
+  }
+}
+
+/* =====================================
+   EXTRA GLOW
+===================================== */
+
+.centerContent h1 {
+  animation: fadeUp 1s ease;
+}
+
+.subtitle {
+  animation: fadeUp 1.5s ease;
+}
+
+.loadingText {
+  animation: fadeUp 2s ease, pulse 2s infinite 2s;
+}
+
+/* =====================================
+   OPTIONAL SOFT VIGNETTE
+===================================== */
+
+.splashPage::after {
+  content: "";
+
+  position: absolute;
+
+  inset: 0;
+
+  background: radial-gradient(circle, transparent 45%, rgba(0, 0, 0, 0.18));
+
+  pointer-events: none;
+}
+
+/* =====================================
+   MOBILE
+===================================== */
+
+@media (max-width: 900px) {
+  .centerContent h1 {
+    font-size: 62px;
+  }
+
+  .subtitle {
+    font-size: 22px;
+  }
+
+  .bookIcon {
+    font-size: 64px;
+  }
+
+  .loadingText {
+    font-size: 17px;
+  }
+
+  .cloud {
+    font-size: 45px !important;
+  }
+}
+
+@media (max-width: 600px) {
+  .centerContent h1 {
+    font-size: 46px;
+  }
+
+  .subtitle {
+    font-size: 18px;
+  }
+
+  .bookIcon {
+    font-size: 52px;
+  }
+
+  .loadingText {
+    margin-top: 50px;
+
+    font-size: 15px;
+  }
+}
+/* ==========================================
+   BEAUTIFUL FLOATING CLOUDS
+========================================== */
+
+.cloud {
+  position: absolute;
+
+  z-index: 2;
+
+  pointer-events: none;
+
+  opacity: 0.55;
+
+  user-select: none;
+
+  filter: blur(1px);
+
+  animation-timing-function: linear;
+
+  animation-iteration-count: infinite;
+}
+
+/* ---------- Cloud 1 ---------- */
+
+.cloud1 {
+  width: 260px;
+
+  top: 8%;
+
+  left: -320px;
+
+  animation: cloudMove1 24s linear infinite;
+}
+
+/* ---------- Cloud 2 ---------- */
+
+.cloud2 {
+  width: 190px;
+
+  top: 24%;
+
+  left: -250px;
+
+  opacity: 0.4;
+
+  animation: cloudMove2 30s linear infinite;
+
+  animation-delay: 2s;
+}
+
+/* ---------- Cloud 3 ---------- */
+
+.cloud3 {
+  width: 320px;
+
+  bottom: 12%;
+
+  left: -350px;
+
+  opacity: 0.5;
+
+  animation: cloudMove3 28s linear infinite;
+
+  animation-delay: 5s;
+}
+
+/* ---------- Cloud 4 ---------- */
+
+.cloud4 {
+  width: 150px;
+
+  top: 62%;
+
+  left: -220px;
+
+  opacity: 0.3;
+
+  animation: cloudMove4 34s linear infinite;
+
+  animation-delay: 7s;
+}
+
+/* ---------- Cloud 5 ---------- */
+
+.cloud5 {
+  width: 230px;
+
+  top: 45%;
+
+  left: -280px;
+
+  opacity: 0.45;
+
+  animation: cloudMove5 26s linear infinite;
+
+  animation-delay: 10s;
+}
+
+/* ==========================================
+   ANIMATIONS
+========================================== */
+
+@keyframes cloudMove1 {
+  from {
+    transform: translateX(0px) translateY(0px);
+  }
+
+  to {
+    transform: translateX(calc(100vw + 700px)) translateY(-25px);
+  }
+}
+
+@keyframes cloudMove2 {
+  from {
+    transform: translateX(0px) translateY(0px);
+  }
+
+  to {
+    transform: translateX(calc(100vw + 600px)) translateY(20px);
+  }
+}
+
+@keyframes cloudMove3 {
+  from {
+    transform: translateX(0px) translateY(0px);
+  }
+
+  to {
+    transform: translateX(calc(100vw + 800px)) translateY(-15px);
+  }
+}
+
+@keyframes cloudMove4 {
+  from {
+    transform: translateX(0px);
+  }
+
+  to {
+    transform: translateX(calc(100vw + 500px));
+  }
+}
+
+@keyframes cloudMove5 {
+  from {
+    transform: translateX(0px) translateY(0px);
+  }
+
+  to {
+    transform: translateX(calc(100vw + 650px)) translateY(18px);
+  }
+}
+
+/* ==========================================
+   BOOK
+========================================== */
+
+.bookIcon {
+  font-size: 82px;
+
+  margin-bottom: 18px;
+
+  animation: floatingBook 3s ease-in-out infinite;
+}
+
+@keyframes floatingBook {
+  0% {
+    transform: translateY(0px);
+  }
+
+  50% {
+    transform: translateY(-10px);
+  }
+
+  100% {
+    transform: translateY(0px);
+  }
+}
+
+/* ==========================================
+   TITLE
+========================================== */
+
+.centerContent h1 {
+  font-size: 92px;
+
+  color: #fff7ef;
+
+  margin: 0;
+
+  letter-spacing: 2px;
+
+  text-shadow: 0 8px 25px rgba(0, 0, 0, 0.28);
+}
+
+/* ==========================================
+   SUBTITLE
+========================================== */
+
+.subtitle {
+  margin-top: 18px;
+
+  font-size: 26px;
+
+  color: #ffd66e;
+
+  font-weight: 500;
+
+  text-shadow: 0 2px 10px rgba(255, 214, 110, 0.3);
+}
+
+/* ==========================================
+   LOADING
+========================================== */
+
+.loadingText {
+  margin-top: 65px;
+
+  color: rgba(255, 255, 255, 0.82);
+
+  font-size: 20px;
+
+  animation: pulse 2s infinite;
+}
+
+@keyframes pulse {
+  0% {
+    opacity: 0.45;
+  }
+
+  50% {
+    opacity: 1;
+  }
+
+  100% {
+    opacity: 0.45;
+  }
+}
+
+/* ==========================================
+   MOBILE
+========================================== */
+
+@media (max-width: 768px) {
+  .centerContent h1 {
+    font-size: 58px;
+  }
+
+  .subtitle {
+    font-size: 20px;
+  }
+
+  .bookIcon {
+    font-size: 60px;
+  }
+
+  .cloud1,
+  .cloud2,
+  .cloud3,
+  .cloud4,
+  .cloud5 {
+    width: 140px !important;
+  }
+}

@@ -1,0 +1,132 @@
+.loginPage {
+  min-height: 100vh;
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  padding: 30px;
+
+  background: linear-gradient(135deg, #2f2342, #4b2d5d, #5a3045, #31442d);
+}
+
+/* CARD */
+
+.loginCard {
+  width: 430px;
+  max-width: 90vw;
+
+  padding: 55px 45px;
+
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+
+  background: rgba(126, 88, 128, 0.85);
+
+  backdrop-filter: blur(25px);
+
+  border-radius: 30px;
+
+  box-shadow: 0 20px 50px rgba(0, 0, 0, 0.3);
+}
+
+/* TITLE */
+
+.loginCard h2 {
+  margin: 0;
+
+  text-align: center;
+
+  color: white;
+
+  font-size: 38px;
+}
+
+/* SUBTITLE */
+
+.subtitle {
+  text-align: center;
+
+  color: rgba(255, 255, 255, 0.75);
+
+  margin-bottom: 15px;
+
+  line-height: 1.6;
+}
+
+/* INPUTS */
+
+.loginCard input {
+  width: 100%;
+
+  box-sizing: border-box;
+
+  padding: 16px 20px;
+
+  border: none;
+
+  border-radius: 14px;
+
+  background: #f8f5f2;
+
+  color: #4a3a4d;
+
+  font-size: 16px;
+
+  outline: none;
+
+  transition: 0.25s;
+}
+
+.loginCard input::placeholder {
+  color: #9a8d95;
+}
+
+.loginCard input:focus {
+  background: white;
+
+  box-shadow: 0 0 0 3px rgba(255, 255, 255, 0.2);
+}
+
+/* BUTTON */
+
+.loginCard button {
+  margin-top: 8px;
+
+  width: 100%;
+
+  padding: 17px;
+
+  border: none;
+
+  border-radius: 999px;
+
+  background: #708a3e;
+
+  color: white;
+
+  font-size: 18px;
+
+  cursor: pointer;
+
+  transition: 0.3s;
+}
+
+.loginCard button:hover {
+  transform: translateY(-2px);
+
+  background: #809c48;
+}
+
+/* MOBILE */
+
+@media (max-width: 500px) {
+  .loginCard {
+    padding: 40px 25px;
+  }
+
+  .loginCard h2 {
+    font-size: 30px;
+  }
+}

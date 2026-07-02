@@ -1,0 +1,98 @@
+.memoryOverlay {
+  position: fixed;
+  inset: 0;
+
+  background: radial-gradient(
+    circle,
+    rgba(123, 75, 148, 0.9),
+    rgba(46, 36, 59, 1)
+  );
+
+  z-index: 9999;
+
+  overflow: hidden;
+
+  animation: fadeOverlay 2.2s forwards;
+}
+
+.star {
+  position: absolute;
+
+  width: 4px;
+  height: 4px;
+
+  border-radius: 50%;
+
+  background: #fff8d6;
+
+  animation: explode ease-out forwards;
+}
+
+.memoryText {
+  position: absolute;
+
+  top: 50%;
+  left: 50%;
+
+  transform: translate(-50%, -50%);
+
+  color: white;
+
+  font-size: 34px;
+
+  font-style: italic;
+
+  text-align: center;
+
+  opacity: 0;
+
+  animation: quoteFade 2s forwards;
+}
+
+@keyframes explode {
+  0% {
+    transform: scale(0);
+    opacity: 0;
+  }
+
+  20% {
+    opacity: 1;
+  }
+
+  100% {
+    transform: scale(18);
+    opacity: 0;
+  }
+}
+
+@keyframes quoteFade {
+  20% {
+    opacity: 0;
+  }
+
+  40% {
+    opacity: 1;
+  }
+
+  80% {
+    opacity: 1;
+  }
+
+  100% {
+    opacity: 0;
+  }
+}
+
+@keyframes fadeOverlay {
+  0% {
+    opacity: 1;
+  }
+
+  90% {
+    opacity: 1;
+  }
+
+  100% {
+    opacity: 0;
+  }
+}
