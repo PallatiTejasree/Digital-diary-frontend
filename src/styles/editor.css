@@ -219,6 +219,36 @@
 
   line-height: 1.7;
 }
+
+.calendar {
+  width: 75px;
+  height: 75px;
+  border-radius: 14px;
+  overflow: hidden;
+  background: white;
+  border: 2px solid #d8d8d8;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+  margin-bottom: 15px;
+}
+
+.calendar-month {
+  background: #8b5fbf;
+  color: white;
+  text-align: center;
+  padding: 6px;
+  font-size: 14px;
+  font-weight: bold;
+}
+
+.calendar-date {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 45px;
+  font-size: 28px;
+  font-weight: bold;
+  color: #333;
+}
 /* =========================================
    TIMELINE SECTION
 ========================================= */

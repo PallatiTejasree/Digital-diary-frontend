@@ -475,10 +475,26 @@ return (
       </div>
 
       <div className="card">
-        <h3>📅 This Month</h3>
-        <p>{thisMonthEntries} Entries</p>
-      </div>
+  <div className="calendar">
+    <div className="calendar-month">
+      {new Date().toLocaleString("default", { month: "short" })}
+    </div>
 
+    <div className="calendar-date">
+      {new Date().getDate()}
+    </div>
+  </div>
+
+  <h3>
+    {new Date().toLocaleDateString("en-GB", {
+      day: "numeric",
+      month: "long",
+      year: "numeric",
+    })}
+  </h3>
+
+  <p>{thisMonthEntries} Entries</p>
+</div>
       <div className="card">
         <h3>📖 Memories</h3>
         <p>{memories.length}</p>
