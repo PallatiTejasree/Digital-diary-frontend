@@ -1,6 +1,7 @@
 import { useNavigate } from "react-router-dom";
 import { useState, useEffect } from "react";
 import "../styles/reflection.css";
+import API_BASE from "../api";
 
 function Reflection() {
   const navigate = useNavigate();
@@ -29,7 +30,7 @@ function Reflection() {
     }
 
     try {
-      const response = await fetch("http://127.0.0.1:8000/diary/", {
+      const response = await fetch(`${API_BASE}/diary/`, {
         headers: {
           Authorization: `Bearer ${token}`,
         },

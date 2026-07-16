@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import "../styles/archive.css";
+import API_BASE from "../api";
 
 function Archive() {
   const navigate = useNavigate();
@@ -15,7 +16,7 @@ function Archive() {
     const token = localStorage.getItem("token");
 
     const response = await fetch(
-      "http://127.0.0.1:8000/diary/",
+      `${API_BASE}/diary/`,
       {
         headers: {
           Authorization: `Bearer ${token}`,
@@ -86,7 +87,7 @@ function Archive() {
     const token = localStorage.getItem("token");
 
     await fetch(
-      `http://127.0.0.1:8000/diary/${memory.id}`,
+      `${API_BASE}/diary/${memory.id}`,
       {
         method: "PUT",
         headers: {

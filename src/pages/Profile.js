@@ -34,7 +34,7 @@ function Profile() {
 
         // Diary data
         const diaryResponse = await fetch(
-          "http://127.0.0.1:8000/diary/",
+          fetch(`${API_BASE}/diary/`),
           {
             headers: {
               Authorization: `Bearer ${token}`,

@@ -81,7 +81,7 @@ function Editor() {
 
       // Memories
       const diaryRes = await fetch(
-        "http://127.0.0.1:8000/diary/",
+        `${API_BASE}/diary/`,
         {
           headers: {
             Authorization: `Bearer ${token}`,
@@ -252,7 +252,7 @@ const saveMemory = async () => {
 
     if (editingId) {
       response = await fetch(
-        `http://127.0.0.1:8000/diary/${editingId}`,
+        `${API_BASE}/diary/${editingId}`,
         {
           method: "PUT",
           headers: {
@@ -264,7 +264,7 @@ const saveMemory = async () => {
       );
     } else {
       response = await fetch(
-        "http://127.0.0.1:8000/diary/",
+        `${API_BASE}/diary/`,
         {
           method: "POST",
           headers: {
@@ -306,7 +306,7 @@ const deleteMemory = async (id) => {
 
   try {
     const response = await fetch(
-      `http://127.0.0.1:8000/diary/${id}`,
+      `${API_BASE}/diary/${id}`,
       {
         method: "DELETE",
         headers: {
@@ -336,7 +336,7 @@ const toggleFavorite = async (memory) => {
 
   try {
     const response = await fetch(
-      `http://127.0.0.1:8000/diary/${memory.id}`,
+      `${API_BASE}/diary/${memory.id}`,
       {
         method: "PUT",
         headers: {
@@ -374,7 +374,7 @@ const toggleArchive = async (memory) => {
 
   try {
     const response = await fetch(
-      `http://127.0.0.1:8000/diary/${memory.id}`,
+      `${API_BASE}/diary/${memory.id}`,
       {
         method: "PUT",
         headers: {
