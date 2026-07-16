@@ -5,6 +5,7 @@ import {
 } from "react-router-dom";
 
 import "../styles/editor.css";
+import API_BASE from "../api";
 
 function Editor() {
   const navigate = useNavigate();
@@ -61,7 +62,7 @@ function Editor() {
     try {
       // Current User
       const userRes = await fetch(
-        "http://127.0.0.1:8000/me",
+        `${API_BASE}/me`,
         {
           headers: {
             Authorization: `Bearer ${token}`,

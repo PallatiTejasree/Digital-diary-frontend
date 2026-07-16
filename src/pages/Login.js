@@ -14,6 +14,8 @@ function Login() {
     setError("");
 
     try {
+      console.log("Email:", email);
+console.log("Password:", password);
       const response = await fetch(`${API_BASE}/login`, {
         method: "POST",
         headers: {

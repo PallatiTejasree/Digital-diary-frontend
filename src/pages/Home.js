@@ -3,7 +3,7 @@ import { useNavigate } from "react-router-dom";
 
 import "../styles/home.css";
 import IntroAnimation from "../components/IntroAnimation";
-
+import API_BASE from "../api";
 function Home() {
   const navigate = useNavigate();
 
@@ -21,7 +21,7 @@ function Home() {
 
       try {
         const response = await fetch(
-          "http://127.0.0.1:8000/me",
+          `${API_BASE}/me`,
           {
             headers: {
               Authorization: `Bearer ${token}`,
