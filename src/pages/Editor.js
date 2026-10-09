@@ -16,6 +16,10 @@ function Editor() {
   // =============================
 
   const [username, setUsername] = useState("Friend");
+  const [userEmail, setUserEmail] = useState("");
+  const [showResetPassword, setShowResetPassword] = useState(false);
+  const [newPassword, setNewPassword] = useState("");
+  const [passwordMessage, setPasswordMessage] = useState("");
 
   const [showPaper, setShowPaper] = useState(false);
 
@@ -78,6 +82,7 @@ function Editor() {
       const user = await userRes.json();
 
       setUsername(user.name);
+      setUserEmail(user.email);
 
       // Memories
       const diaryRes = await fetch(
@@ -97,6 +102,32 @@ function Editor() {
     } catch (err) {
       console.log(err);
     }
+  };
+
+  const resetPassword = async () => {
+    setPasswordMessage("");
+    if (newPassword.length < 8) {
+      setPasswordMessage("Password must be at least 8 characters.");
+      return;
+    }
+
+    const response = await fetch(`${API_BASE}/change-password`, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${localStorage.getItem("token")}`,
+      },
+      body: JSON.stringify({ email: userEmail, new_password: newPassword }),
+    });
+    const data = await response.json();
+
+    if (!response.ok) {
+      setPasswordMessage(data.detail || "Password reset failed.");
+      return;
+    }
+
+    setNewPassword("");
+    setPasswordMessage("Password updated successfully.");
   };
 
   // Load once
@@ -449,6 +480,16 @@ return (
           onClick={() => navigate("/archive")}
         >
           📦 Archive
+        </button>
+
+        <button
+          className="reflectionButton"
+          onClick={() => {
+            setPasswordMessage("");
+            setShowResetPassword(true);
+          }}
+        >
+          🔑 Reset Password
         </button>
 
       </div>
@@ -1000,6 +1041,35 @@ return (
 
           </div>
 
+        </div>
+      )}
+
+      {showResetPassword && (
+        <div className="paperOverlay">
+          <div
+            style={{
+              background: "white",
+              padding: "30px",
+              borderRadius: "20px",
+              width: "400px",
+              textAlign: "center",
+            }}
+          >
+            <h2>🔑 Reset Password</h2>
+            <p>{userEmail}</p>
+            <input
+              type="password"
+              placeholder="New password (8+ characters)"
+              value={newPassword}
+              onChange={(e) => setNewPassword(e.target.value)}
+              style={{ width: "90%", padding: "12px", margin: "15px 0" }}
+            />
+            {passwordMessage && <p>{passwordMessage}</p>}
+            <div style={{ display: "flex", justifyContent: "center", gap: "15px" }}>
+              <button className="saveButton" onClick={resetPassword}>Save Password</button>
+              <button className="reflectionButton" onClick={() => setShowResetPassword(false)}>Cancel</button>
+            </div>
+          </div>
         </div>
       )}
 

@@ -9,6 +9,30 @@ function Login() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [error, setError] = useState("");
+  const [resetMode, setResetMode] = useState(false);
+  const [newPassword, setNewPassword] = useState("");
+
+  const handleResetPassword = async () => {
+    setError("");
+    try {
+      const response = await fetch(`${API_BASE}/reset-password`, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ email, new_password: newPassword }),
+      });
+      const data = await response.json();
+      if (!response.ok) {
+        setError(typeof data.detail === "string" ? data.detail : "Password reset failed");
+        return;
+      }
+      setPassword("");
+      setNewPassword("");
+      setResetMode(false);
+      setError("Password reset successfully. You can now log in.");
+    } catch (err) {
+      setError("Unable to connect to server.");
+    }
+  };
 
   const handleLogin = async () => {
     setError("");
@@ -70,12 +94,21 @@ console.log("Password:", password);
           onChange={(e) => setEmail(e.target.value)}
         />
 
-        <input
-          type="password"
-          placeholder="Password"
-          value={password}
-          onChange={(e) => setPassword(e.target.value)}
-        />
+        {!resetMode ? (
+          <input
+            type="password"
+            placeholder="Password"
+            value={password}
+            onChange={(e) => setPassword(e.target.value)}
+          />
+        ) : (
+          <input
+            type="password"
+            placeholder="New password (8+ characters)"
+            value={newPassword}
+            onChange={(e) => setNewPassword(e.target.value)}
+          />
+        )}
 
         {error && (
           <p style={{ color: "red", marginTop: "10px" }}>
@@ -83,8 +116,11 @@ console.log("Password:", password);
           </p>
         )}
 
-        <button onClick={handleLogin}>
-          Open Diary ✨
+        <button onClick={resetMode ? handleResetPassword : handleLogin}>
+          {resetMode ? "Save New Password" : "Open Diary ✨"}
+        </button>
+        <button type="button" onClick={() => { setResetMode(!resetMode); setError(""); }}>
+          {resetMode ? "Back to Login" : "Reset Password"}
         </button>
       </div>
     </div>
