@@ -7,8 +7,10 @@ function Login() {
   const navigate = useNavigate();
 
   const [email, setEmail] = useState("");
+  const [name, setName] = useState("");
   const [password, setPassword] = useState("");
   const [error, setError] = useState("");
+  const [signupMode, setSignupMode] = useState(false);
   const [resetMode, setResetMode] = useState(false);
   const [newPassword, setNewPassword] = useState("");
 
@@ -78,14 +80,52 @@ console.log("Password:", password);
     }
   };
 
+  const handleSignup = async () => {
+    setError("");
+    if (!name.trim() || password.length < 8) {
+      setError("Enter your name and a password with at least 8 characters.");
+      return;
+    }
+
+    try {
+      const response = await fetch(`${API_BASE}/signup`, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ name: name.trim(), email, password }),
+      });
+      const data = await response.json();
+
+      if (!response.ok) {
+        setError(typeof data.detail === "string" ? data.detail : "Sign up failed");
+        return;
+      }
+
+      setSignupMode(false);
+      setName("");
+      setPassword("");
+      setError("Account created successfully. You can now log in.");
+    } catch (err) {
+      setError("Unable to connect to server.");
+    }
+  };
+
   return (
     <div className="loginPage">
       <div className="loginCard">
         <h2>🔐 Unlock Memories</h2>
 
         <p className="subtitle">
-          Only your heart knows the password.
+          {signupMode ? "Create a safe place for your memories." : "Only your heart knows the password."}
         </p>
+
+        {signupMode && (
+          <input
+            type="text"
+            placeholder="Name"
+            value={name}
+            onChange={(e) => setName(e.target.value)}
+          />
+        )}
 
         <input
           type="email"
@@ -97,7 +137,7 @@ console.log("Password:", password);
         {!resetMode ? (
           <input
             type="password"
-            placeholder="Password"
+            placeholder={signupMode ? "Password (8+ characters)" : "Password"}
             value={password}
             onChange={(e) => setPassword(e.target.value)}
           />
@@ -116,9 +156,14 @@ console.log("Password:", password);
           </p>
         )}
 
-        <button onClick={resetMode ? handleResetPassword : handleLogin}>
-          {resetMode ? "Save New Password" : "Open Diary ✨"}
+        <button onClick={resetMode ? handleResetPassword : (signupMode ? handleSignup : handleLogin)}>
+          {resetMode ? "Save New Password" : (signupMode ? "Create Account ✨" : "Open Diary ✨")}
         </button>
+        {!resetMode && (
+          <button type="button" onClick={() => { setSignupMode(!signupMode); setError(""); }}>
+            {signupMode ? "Back to Login" : "Create New Account"}
+          </button>
+        )}
         <button type="button" onClick={() => { setResetMode(!resetMode); setError(""); }}>
           {resetMode ? "Back to Login" : "Reset Password"}
         </button>
