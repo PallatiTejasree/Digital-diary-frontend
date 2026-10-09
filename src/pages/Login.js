@@ -15,6 +15,26 @@ function Login() {
   const [newPassword, setNewPassword] = useState("");
   const [pin, setPin] = useState("");
   const [recoveredUser, setRecoveredUser] = useState(null);
+  const [forgotEmailMode, setForgotEmailMode] = useState(false);
+
+  const handleForgotEmail = async () => {
+    setError("");
+    try {
+      const response = await fetch(`${API_BASE}/recover-account`, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ pin }),
+      });
+      const data = await response.json();
+      if (!response.ok) {
+        setError(data.detail || "PIN not found");
+        return;
+      }
+      setRecoveredUser(data);
+    } catch (err) {
+      setError("Unable to connect to server.");
+    }
+  };
 
   const handleResetPassword = async () => {
     setError("");
@@ -173,12 +193,26 @@ console.log("Password:", password);
           />
         )}
 
-        {!resetMode && <input
+        {!resetMode && !forgotEmailMode && <input
           type="email"
           placeholder="Email"
           value={email}
           onChange={(e) => setEmail(e.target.value)}
         />}
+
+        {forgotEmailMode && !recoveredUser && (
+          <input
+            type="password"
+            inputMode="numeric"
+            placeholder="Recovery PIN"
+            value={pin}
+            onChange={(e) => setPin(e.target.value.replace(/\D/g, ""))}
+          />
+        )}
+
+        {forgotEmailMode && recoveredUser && (
+          <p className="recoveredUser">Your email: {recoveredUser.email}</p>
+        )}
 
         {resetMode && !recoveredUser && (
           <input
@@ -216,10 +250,13 @@ console.log("Password:", password);
           </p>
         )}
 
-        <button onClick={resetMode ? handleResetPassword : (signupMode ? handleSignup : handleLogin)}>
-          {resetMode ? "Save New Password" : (signupMode ? "Create Account ✨" : "Open Diary ✨")}
+        <button onClick={forgotEmailMode ? handleForgotEmail : (resetMode ? handleResetPassword : (signupMode ? handleSignup : handleLogin))}>
+          {forgotEmailMode ? "Find My Email" : (resetMode ? "Save New Password" : (signupMode ? "Create Account ✨" : "Open Diary ✨"))}
         </button>
-        <button className="resetButton" type="button" onClick={() => { setResetMode(!resetMode); setSignupMode(false); setRecoveredUser(null); setPin(""); setError(""); }}>
+        <button className="resetButton" type="button" onClick={() => { setForgotEmailMode(!forgotEmailMode); setResetMode(false); setSignupMode(false); setRecoveredUser(null); setPin(""); setError(""); }}>
+          {forgotEmailMode ? "Back to Login" : "Forgot Email?"}
+        </button>
+        <button className="resetButton" type="button" onClick={() => { setResetMode(!resetMode); setForgotEmailMode(false); setSignupMode(false); setRecoveredUser(null); setPin(""); setError(""); }}>
           {resetMode ? "Back to Login" : "Reset Password"}
         </button>
       </div>
