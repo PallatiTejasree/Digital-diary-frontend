@@ -114,6 +114,23 @@ console.log("Password:", password);
       <div className="loginCard">
         <h2>🔐 Unlock Memories</h2>
 
+        <div className="authTabs" role="tablist" aria-label="Account access">
+          <button
+            type="button"
+            className={!signupMode && !resetMode ? "authTab active" : "authTab"}
+            onClick={() => { setSignupMode(false); setResetMode(false); setError(""); }}
+          >
+            Login
+          </button>
+          <button
+            type="button"
+            className={signupMode ? "authTab active" : "authTab"}
+            onClick={() => { setSignupMode(true); setResetMode(false); setError(""); }}
+          >
+            Sign up
+          </button>
+        </div>
+
         <p className="subtitle">
           {signupMode ? "Create a safe place for your memories." : "Only your heart knows the password."}
         </p>
@@ -159,12 +176,7 @@ console.log("Password:", password);
         <button onClick={resetMode ? handleResetPassword : (signupMode ? handleSignup : handleLogin)}>
           {resetMode ? "Save New Password" : (signupMode ? "Create Account ✨" : "Open Diary ✨")}
         </button>
-        {!resetMode && (
-          <button type="button" onClick={() => { setSignupMode(!signupMode); setError(""); }}>
-            {signupMode ? "Back to Login" : "Create New Account"}
-          </button>
-        )}
-        <button type="button" onClick={() => { setResetMode(!resetMode); setError(""); }}>
+        <button className="resetButton" type="button" onClick={() => { setResetMode(!resetMode); setSignupMode(false); setError(""); }}>
           {resetMode ? "Back to Login" : "Reset Password"}
         </button>
       </div>

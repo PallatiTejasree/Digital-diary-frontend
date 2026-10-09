@@ -43,6 +43,33 @@
   font-size: 38px;
 }
 
+/* LOGIN / SIGNUP TABS */
+
+.authTabs {
+  display: flex;
+  gap: 8px;
+  padding: 5px;
+  margin: 4px 0 2px;
+  border-radius: 999px;
+  background: rgba(54, 29, 63, 0.3);
+}
+
+.loginCard .authTab {
+  margin-top: 0;
+  padding: 11px 16px;
+  background: transparent;
+  color: rgba(255, 255, 255, 0.72);
+  font-size: 16px;
+  font-weight: 600;
+}
+
+.loginCard .authTab:hover,
+.loginCard .authTab.active {
+  transform: none;
+  background: rgba(255, 255, 255, 0.92);
+  color: #654b75;
+}
+
 /* SUBTITLE */
 
 .subtitle {
@@ -117,6 +144,18 @@
   transform: translateY(-2px);
 
   background: #809c48;
+}
+
+.loginCard .resetButton {
+  margin-top: 0;
+  background: transparent;
+  color: rgba(255, 255, 255, 0.82);
+  font-size: 15px;
+}
+
+.loginCard .resetButton:hover {
+  background: transparent;
+  color: white;
 }
 
 /* MOBILE */
