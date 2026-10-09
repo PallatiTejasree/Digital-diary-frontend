@@ -13,14 +13,30 @@ function Login() {
   const [signupMode, setSignupMode] = useState(false);
   const [resetMode, setResetMode] = useState(false);
   const [newPassword, setNewPassword] = useState("");
+  const [pin, setPin] = useState("");
+  const [recoveredUser, setRecoveredUser] = useState(null);
 
   const handleResetPassword = async () => {
     setError("");
     try {
+      if (!recoveredUser) {
+        const response = await fetch(`${API_BASE}/recover-account`, {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ pin }),
+        });
+        const data = await response.json();
+        if (!response.ok) {
+          setError(data.detail || "PIN not found");
+          return;
+        }
+        setRecoveredUser(data);
+        return;
+      }
       const response = await fetch(`${API_BASE}/reset-password`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ email, new_password: newPassword }),
+        body: JSON.stringify({ email: recoveredUser.email, new_password: newPassword }),
       });
       const data = await response.json();
       if (!response.ok) {
@@ -30,6 +46,8 @@ function Login() {
       setPassword("");
       setNewPassword("");
       setResetMode(false);
+      setRecoveredUser(null);
+      setPin("");
       setError("Password reset successfully. You can now log in.");
     } catch (err) {
       setError("Unable to connect to server.");
@@ -82,8 +100,8 @@ console.log("Password:", password);
 
   const handleSignup = async () => {
     setError("");
-    if (!name.trim() || password.length < 8) {
-      setError("Enter your name and a password with at least 8 characters.");
+    if (!name.trim() || password.length < 8 || pin.length < 4) {
+      setError("Enter your name, an 8+ character password, and a 4+ digit PIN.");
       return;
     }
 
@@ -91,7 +109,7 @@ console.log("Password:", password);
       const response = await fetch(`${API_BASE}/signup`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ name: name.trim(), email, password }),
+        body: JSON.stringify({ name: name.trim(), email, password, pin }),
       });
       const data = await response.json();
 
@@ -103,6 +121,7 @@ console.log("Password:", password);
       setSignupMode(false);
       setName("");
       setPassword("");
+      setPin("");
       setError("Account created successfully. You can now log in.");
     } catch (err) {
       setError("Unable to connect to server.");
@@ -144,14 +163,38 @@ console.log("Password:", password);
           />
         )}
 
-        <input
+        {signupMode && (
+          <input
+            type="password"
+            inputMode="numeric"
+            placeholder="Recovery PIN (4+ digits)"
+            value={pin}
+            onChange={(e) => setPin(e.target.value.replace(/\D/g, ""))}
+          />
+        )}
+
+        {!resetMode && <input
           type="email"
           placeholder="Email"
           value={email}
           onChange={(e) => setEmail(e.target.value)}
-        />
+        />}
 
-        {!resetMode ? (
+        {resetMode && !recoveredUser && (
+          <input
+            type="password"
+            inputMode="numeric"
+            placeholder="Recovery PIN"
+            value={pin}
+            onChange={(e) => setPin(e.target.value.replace(/\D/g, ""))}
+          />
+        )}
+
+        {resetMode && recoveredUser && <p className="recoveredUser">Account found: {recoveredUser.name}</p>}
+
+        {resetMode && recoveredUser ? (
+          <input type="password" placeholder="New password (8+ characters)" value={newPassword} onChange={(e) => setNewPassword(e.target.value)} />
+        ) : !resetMode ? (
           <input
             type="password"
             placeholder={signupMode ? "Password (8+ characters)" : "Password"}
@@ -176,7 +219,7 @@ console.log("Password:", password);
         <button onClick={resetMode ? handleResetPassword : (signupMode ? handleSignup : handleLogin)}>
           {resetMode ? "Save New Password" : (signupMode ? "Create Account ✨" : "Open Diary ✨")}
         </button>
-        <button className="resetButton" type="button" onClick={() => { setResetMode(!resetMode); setSignupMode(false); setError(""); }}>
+        <button className="resetButton" type="button" onClick={() => { setResetMode(!resetMode); setSignupMode(false); setRecoveredUser(null); setPin(""); setError(""); }}>
           {resetMode ? "Back to Login" : "Reset Password"}
         </button>
       </div>

@@ -146,6 +146,13 @@
   background: #809c48;
 }
 
+.recoveredUser {
+  margin: 0;
+  text-align: center;
+  color: white;
+  font-weight: 600;
+}
+
 .loginCard .resetButton {
   width: 72%;
   align-self: center;
