@@ -25,14 +25,18 @@ function Login() {
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ pin }),
       });
-      const data = await response.json();
+      const responseText = await response.text();
+      let data = {};
+      try { data = responseText ? JSON.parse(responseText) : {}; } catch (parseError) {
+        data.detail = responseText || "Server returned an invalid response";
+      }
       if (!response.ok) {
         setError(data.detail || "PIN not found");
         return;
       }
       setRecoveredUser(data);
     } catch (err) {
-      setError("Unable to connect to server.");
+      setError(`Unable to connect to server: ${err.message}`);
     }
   };
 
@@ -131,7 +135,11 @@ console.log("Password:", password);
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ name: name.trim(), email, password, pin }),
       });
-      const data = await response.json();
+      const responseText = await response.text();
+      let data = {};
+      try { data = responseText ? JSON.parse(responseText) : {}; } catch (parseError) {
+        data.detail = responseText || "Server returned an invalid response";
+      }
 
       if (!response.ok) {
         setError(typeof data.detail === "string" ? data.detail : "Sign up failed");
@@ -144,7 +152,7 @@ console.log("Password:", password);
       setPin("");
       setError("Account created successfully. You can now log in.");
     } catch (err) {
-      setError("Unable to connect to server.");
+      setError(`Unable to connect to server: ${err.message}`);
     }
   };
 
