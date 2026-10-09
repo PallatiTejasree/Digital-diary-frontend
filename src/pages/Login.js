@@ -226,7 +226,7 @@ console.log("Password:", password);
 
         {resetMode && recoveredUser && <p className="recoveredUser">Account found: {recoveredUser.name}</p>}
 
-        {resetMode && recoveredUser ? (
+        {forgotEmailMode ? null : resetMode && recoveredUser ? (
           <input type="password" placeholder="New password (8+ characters)" value={newPassword} onChange={(e) => setNewPassword(e.target.value)} />
         ) : !resetMode ? (
           <input
