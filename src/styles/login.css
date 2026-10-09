@@ -147,14 +147,18 @@
 }
 
 .loginCard .resetButton {
-  margin-top: 0;
-  background: transparent;
-  color: rgba(255, 255, 255, 0.82);
+  width: 72%;
+  align-self: center;
+  margin-top: 2px;
+  padding: 13px;
+  background: #708a3e;
+  color: white;
   font-size: 15px;
+  font-weight: 600;
 }
 
 .loginCard .resetButton:hover {
-  background: transparent;
+  background: #809c48;
   color: white;
 }
 
