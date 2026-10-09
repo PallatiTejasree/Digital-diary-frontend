@@ -8,15 +8,15 @@ function IntroAnimation({ onFinish }) {
   const [opened, setOpened] = useState(false);
 
   useEffect(() => {
-    // Zoom into closed diary for 3.5 seconds
+    // Let the closed diary zoom in before revealing the open diary.
     const openTimer = setTimeout(() => {
       setOpened(true);
-    }, 3500);
+    }, 3200);
 
-    // Show opened diary briefly and then go to editor
+    // Keep the opened diary on screen long enough to be seen.
     const finishTimer = setTimeout(() => {
       onFinish();
-    }, 4700);
+    }, 7000);
 
     return () => {
       clearTimeout(openTimer);
